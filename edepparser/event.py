@@ -6,10 +6,11 @@ class Event:
     """
     def __init__(self, tg4event_instance):
         self.event = tg4event_instance
-        self.segments = [segment
-                         for segment in HitSegments
-                         for containerName, hitSegments in self.event.SegmentDetectors]
-        self.trajectories = self.event.Trajctories
+        self.segments = sum([[segment
+                              for segment in hitSegments]
+                             for containerName, hitSegments in self.event.SegmentDetectors],
+                            start = [])
+        self.trajectories = self.event.Trajectories
 
     def plot_segments(self, output_file):
         """
